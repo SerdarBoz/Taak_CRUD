@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Taak_CRUD.Models.Animal>
+
+@{
+    ViewData["Title"] = "Index";    
+}
+
+@{
+    int totalAge = 0;
+    int averageAge = 0;
+    foreach (var animal in Model)
+    {
+        totalAge += animal.Age;
+    }
+
+    if(Model.Count() > 0)
+    {
+        averageAge = totalAge / Model.Count();
+    }
+    
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Species)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthyear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vaccinated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Species)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birthyear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vaccinated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<p>Totaal aantal dieren: @Model.Count()</p>
+<p>Gemiddelde leeftijd: @averageAge</p>
