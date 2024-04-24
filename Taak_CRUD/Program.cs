@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Taak_CRUD.Models;
+
 namespace Taak_CRUD
 {
     public class Program
@@ -9,7 +13,11 @@ namespace Taak_CRUD
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            var connectionstring = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionstring));
+
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
